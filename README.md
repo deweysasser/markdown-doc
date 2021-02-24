@@ -12,6 +12,7 @@ Add tables of contents to all markdown files in this repo.
     * [Bulk html generation](#bulk-html-generation)
   * [Author and Bug Reports](#author-and-bug-reports)
   * [Notes](#notes)
+  * [TODO](#todo)
 
 ## Features
 
@@ -54,3 +55,8 @@ Please use GitHub issues for any bug reports or change requests
 The script uses `sed` and `awk` for maximum system compatability.  It was developed on MacOS, so it's expected to run anywhere with a `sed` and `awk` more recent than 1990 or so.
 
 It's also about the gnarliest piece of `sed` that I ever want to write, and could be used as the example on a slide for "why modern interpreted languages exist".
+
+## TODO
+
+* use pandoc to generate arbitrary formats
+* use a static web site generator to generate a site?
