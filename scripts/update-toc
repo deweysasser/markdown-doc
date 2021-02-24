@@ -1,0 +1,82 @@
+#!/bin/bash
+
+set -ueo pipefail
+
+# Purpose:  update the TOC in markdown files
+
+trap 'rm tmp$$' 0
+
+gentoc() {
+    echo ""
+    # This sed command finds the headings -- both the "##" style and the "====/-----" style headings.
+    # the awk command then processes those headings into a table of contents.
+    sed -n  -e "/^#/ {
+        s/^\(#*\) */\1|/
+        p
+        }
+        /^--*/ {
+        x
+        s/^/##|/
+        p
+        }
+        /^==*/ {
+        x
+        s/^/#|/
+        p
+        }
+        h
+" "$1" | \
+    awk -F \| '{
+    sub("#", "", $1)
+    gsub("#", "  ", $1)
+    link=tolower($2)
+    gsub(" +", "-", link)
+    gsub("[^a-zA-Z0-9_-]","",link)
+
+    print $1 "* [" $2 "](#" link ")"
+
+    }'
+    echo ""
+}
+
+modify() {
+    sed -i.bak -ne "\
+   /^## Contents/{
+      p
+      r $2
+      bloop
+   }
+   /^[=-][=-]*/ {
+    x
+    /Contents/ {
+    x;p;
+    r $2
+    bloop
+    }
+    x
+   }
+   h
+   p
+   d
+   :loop
+     n
+
+     /^#/{
+        p
+        d
+     }
+     /^[=-][=-]*/ {
+       x;p;x;p
+       d
+     }
+     h
+     bloop
+" \
+"$1"
+
+}
+
+for file in "$@"; do
+    gentoc "$file" > tmp$$
+    modify "$file" tmp$$
+done
