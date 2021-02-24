@@ -4,8 +4,24 @@ Add tables of contents to all markdown files in this repo.
 
 ## Contents
 
+* [Markdown-doc](#markdown-doc)
+  * [Contents](#contents)
+  * [Features](#features)
+  * [Usage](#usage)
+    * [Generate tables of contents](#generate-tables-of-contents)
+    * [Bulk html generation](#bulk-html-generation)
+  * [Author and Bug Reports](#author-and-bug-reports)
+  * [Notes](#notes)
+
+## Features
+
+* Generate Tables of Contents
+* bulk translate to HTML
+* ...
+
 ## Usage
 
+### Generate tables of contents
 When run on a file with a section (any level) titled "Contents" (as above), the scripts here will enable you to automatically generate and insert a Table of Contents.
 
 If no Contents section is found, the files will not be updated.
@@ -22,6 +38,12 @@ To (manually) update the table of contents for all markdown files in this direct
 To set up the git hooks for this repository so that ToCs are updatted on commit, run.
 
      make hooks
+
+### Bulk html generation
+
+`make html`
+
+all markdown files will be rendered into HTML using 'markdown' and placed in `generated/html`
 
 ## Author and Bug Reports
 
